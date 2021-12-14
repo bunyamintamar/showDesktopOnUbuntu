@@ -25,7 +25,7 @@ chmod +x showDesktop.desktop
 echo '#!/usr/bin/env xdg-open'                 >  showDesktop.desktop
 echo ' '                                       >> showDesktop.desktop
 echo '[Desktop Entry]'                         >> showDesktop.desktop
-echo 'Show Desktop'                            >> showDesktop.desktop
+echo "Name=Show Desktop"                       >> showDesktop.desktop
 echo 'StartupNotify=true'                      >> showDesktop.desktop
 echo 'Terminal=false'                          >> showDesktop.desktop
 echo 'Type=Application'                        >> showDesktop.desktop
@@ -34,10 +34,10 @@ echo 'Exec=/opt/showDesktop/showDesktop.sh %F' >> showDesktop.desktop
 sudo cp showDesktop.desktop /usr/share/applications/
 
 # STEP 5 - Add to favorities
-gsettings get /usr/share/applications/showDesktop.desktop favorite-apps
+gsettings set org.gnome.shell favorite-apps "$(gsettings get org.gnome.shell favorite-apps | sed s/.$//), 'showDesktop.desktop']"
 
 # STEP 6 - Delete unnecessary files
-rm -r ~/Desktop/showDesktopOnUbuntu
+sudo rm -r ~/Desktop/showDesktopOnUbuntu
 
 # ------------------------------------
 echo
